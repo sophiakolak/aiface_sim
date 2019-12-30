@@ -10,9 +10,9 @@
 
 using namespace std;
 void make_grid(int dim, Simulation *sim);
-void make_row(int dim);
-void make_column(int dim);
-void set_all_k(int val, int dim);
+void make_rows(int dim, Simulation *sim);
+void make_columns(int dim, Simulation *sim);
+void set_all_k(int dim, Simulation *sim);
 void make_recs(int dim);
 
 vector <Mass *> mass_vec;
@@ -25,13 +25,12 @@ int main(){
     
    Simulation sim;	
    make_grid(50, &sim);
-   //set_all_k(800, 50);
+   set_all_k(50, &sim);
    // make_recs(50);
 }
 
 void make_grid(int dim, Simulation *sim){
     
-    //Simulation sim;
     //for face-on view
     sim->setViewport(Vec(70,0,0), Vec(0, 0, 1), Vec(0, 0, 1));
     //turn off gravity
@@ -59,6 +58,11 @@ void make_grid(int dim, Simulation *sim){
         }
 
     }
+    make_rows(dim, sim);
+    make_columns(dim, sim);
+}
+
+void make_rows(int dim, Simulation *sim){
    
     /** making rows with good indexing **/
     int row = 0;
@@ -71,6 +75,9 @@ void make_grid(int dim, Simulation *sim){
 	}
 	row++;
     }
+}
+
+void make_columns(int dim, Simulation * sim){
 
 
     /** making columns with good indexing **/
@@ -83,7 +90,9 @@ void make_grid(int dim, Simulation *sim){
 	    c++;
 	}
     }
+}
 
+void set_all_k(int dim, Simulation *sim){
     
     for (int i = 0; i < full_springs.size(); i++){
          full_springs[i]->_k = 800;
