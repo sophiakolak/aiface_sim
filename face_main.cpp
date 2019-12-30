@@ -18,9 +18,13 @@ void make_r1(Simulation *sim);
 void make_r2(Simulation *sim);
 void make_r3(Simulation *sim);
 void make_r4(Simulation *sim);
+void make_left_cheek(Simulation *sim);
+void make_right_cheek(Simulation *sim);
+void make_c_row(Container *c, int init, int stop);
 void rest(Simulation *sim);
 Container * make_rec_container(int start, Simulation *sim);
 Container * make_rec_vert(int start, Simulation *sim);
+Container * make_cheek(Simulation *sim, int start);
  
 
 vector <Mass *> mass_vec;
@@ -34,10 +38,9 @@ int main(){
    Simulation sim;	
    make_grid(&sim);
    set_all_k(&sim);
-   //sim.start();
    make_muscles(&sim);
    rest(&sim);
-   // make_recs(50);
+
 }
 
 void make_grid(Simulation *sim){
@@ -115,7 +118,9 @@ void make_muscles(Simulation *sim){
     make_r1(sim);
     make_r2(sim);
     make_r3(sim);
-    make_r4(sim);    
+    make_r4(sim);   
+    make_left_cheek(sim);
+    make_right_cheek(sim); 
 
 }
 
@@ -206,6 +211,54 @@ Container * make_rec_vert(int start, Simulation *sim){
     
 }
 
+void make_left_cheek(Simulation *sim){
+    Container *cl = make_cheek(sim, 13);
+}
+
+void make_right_cheek(Simulation *sim){
+    Container *cr = make_cheek(sim, 32);
+}
+
+Container * make_cheek(Simulation *sim, int start){
+
+    Container * c = sim->createContainer();
+    int init = start + ( (dim-1) * 24 );
+    make_c_row(c, init, 6);
+    int init2 = start + ( (dim-1) * 25 );
+    make_c_row(c, init2, 6);
+    int init3 = start + ( (dim-1) * 26 );
+    make_c_row(c, init3, 6);
+    int init4 = (start+1) + ( (dim-1) * 27 );
+    make_c_row(c, init4, 4);
+   
+    vector <int> index_vec5;
+    index_vec5.push_back( (start-1) + ((dim-1) * 23));
+    index_vec5.push_back( (start+6) + ((dim-1) * 23));
+    index_vec5.push_back( (start-1) + ((dim-1) * 24));
+    index_vec5.push_back( (start+6) + ((dim-1) * 24));
+    index_vec5.push_back( (start+3) + ((dim-1) * 28));
+    index_vec5.push_back( (start+2) + ((dim-1) * 28));
+    for (int x : index_vec5){
+        (spring_vec[  x ]->_left)->color = Vec(0.340,0.850,0.614);
+        (spring_vec[  x  ]->_right)->color = Vec(0.340,0.850,0.614);
+        c->add(spring_vec[  x   ]);
+        c->add( spring_vec[  x   ]->_left );
+        c->add( spring_vec[  x   ]->_right );
+    }
+    return c;
+	
+}
+
+void make_c_row(Container *c, int init, int stop){
+    for (int i = init; i < init + stop; i++){
+        (spring_vec[  i  ]->_left)->color = Vec(0.340,0.850,0.614);
+        (spring_vec[  i  ]->_right)->color = Vec(0.340,0.850,0.614);
+        c->add(spring_vec[  i   ]);
+        c->add( spring_vec[  i   ]->_left );
+        c->add( spring_vec[  i   ]->_right );
+    }
+}
+  
 void rest(Simulation *sim){
 
     /**
@@ -334,7 +387,7 @@ void rest(Simulation *sim){
      * Make left cheek
      * */
 
-    Container * c_l = sim->createContainer();
+    /**Container * c_l = sim->createContainer();
     int init13 = 13 + ( (dim-1) * 24 );
     for (int i = init13; i < init13 + 6; i++){
         (spring_vec[  i  ]->_left)->color = Vec(0.340,0.850,0.614);
@@ -381,13 +434,13 @@ void rest(Simulation *sim){
         c_l->add(spring_vec[  x   ]);
         c_l->add( spring_vec[  x   ]->_left );
         c_l->add( spring_vec[  x   ]->_right );
-    }
+    }**/
 
     /**
      * Make right cheek
      * */
 
-    Container * c_r = sim->createContainer();
+    /**Container * c_r = sim->createContainer();
     int init17 = 32 + ( (dim-1) * 24 );
     for (int i = init17; i < init17 + 6; i++){
         (spring_vec[  i  ]->_left)->color = Vec(0.340,0.850,0.614);
@@ -434,7 +487,7 @@ void rest(Simulation *sim){
         c_r->add(spring_vec[  x   ]);
         c_r->add( spring_vec[  x   ]->_left );
         c_r->add( spring_vec[  x   ]->_right );
-    }
+    }**/
 
 
 
@@ -442,7 +495,7 @@ void rest(Simulation *sim){
      * Make lower ear rec left
      * */
 
-    /**Container * l_e_r_l = sim.createContainer();
+    Container * l_e_r_l = sim->createContainer();
     int j = 31;
     while (j < 34){ 
         int init21 = 8 + ( (dim-1) * j );
@@ -454,7 +507,7 @@ void rest(Simulation *sim){
             l_e_r_l->add( spring_vec[  i   ]->_right );
 	}
 	j++;
-    }**/
+    }
     
 
 
@@ -478,7 +531,7 @@ void rest(Simulation *sim){
      * Make lower ear rec right
      * */
 
-    /**Container * l_e_r_r = sim.createContainer();
+    Container * l_e_r_r = sim->createContainer();
     int k = 31;
     while (k < 34){ 
         int init22 = 40 + ( (dim-1) * k );
@@ -490,7 +543,7 @@ void rest(Simulation *sim){
             l_e_r_r->add( spring_vec[  i   ]->_right );
 	}
 	k++;
-    }**/
+    }
     
     /**
      * Make lower nose diagonal rec left
@@ -558,8 +611,6 @@ void rest(Simulation *sim){
     index_not_corner.push_back(30 + ((dim-1) * 34));
 
     index_corner.push_back(31 + ((dim-1) * 34));
-    //index_vec7.push_back(34 + ((dim-1) * 28));
-    //index_vec7.push_back(35 + ((dim-1) * 28));
     for (int x : index_not_corner){
         (spring_vec[  x ]->_left)->color = Vec(0.194,0.398,0.850);
         (spring_vec[  x  ]->_right)->color = Vec(0.194,0.398,0.850);
@@ -586,7 +637,7 @@ void rest(Simulation *sim){
 	}
     }
 
-    mouth_corner->setRestLengths(8);
+    mouth_corner->setRestLengths(10);
 
 
     /**
