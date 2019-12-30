@@ -9,27 +9,28 @@
 #include <stdio.h>
 
 using namespace std;
-void make_grid(int dim, Simulation *sim);
-void make_rows(int dim, Simulation *sim);
-void make_columns(int dim, Simulation *sim);
-void set_all_k(int dim, Simulation *sim);
-void make_recs(int dim);
+void make_grid(Simulation *sim);
+void make_rows(Simulation *sim);
+void make_columns(Simulation *sim);
+void set_all_k(Simulation *sim);
+void make_muscles(Simulation *sim);
 
 vector <Mass *> mass_vec;
 vector <Spring *> spring_vec;
 vector <Spring *> spring_vec_2;
 vector <Spring *> full_springs;
-     
+int dim = 50;     
 
 int main(){
     
    Simulation sim;	
-   make_grid(50, &sim);
-   set_all_k(50, &sim);
+   make_grid(&sim);
+   set_all_k(&sim);
+   make_muscles(&sim);
    // make_recs(50);
 }
 
-void make_grid(int dim, Simulation *sim){
+void make_grid(Simulation *sim){
     
     //for face-on view
     sim->setViewport(Vec(70,0,0), Vec(0, 0, 1), Vec(0, 0, 1));
@@ -58,11 +59,11 @@ void make_grid(int dim, Simulation *sim){
         }
 
     }
-    make_rows(dim, sim);
-    make_columns(dim, sim);
+    make_rows(sim);
+    make_columns(sim);
 }
 
-void make_rows(int dim, Simulation *sim){
+void make_rows(Simulation *sim){
    
     /** making rows with good indexing **/
     int row = 0;
@@ -77,7 +78,7 @@ void make_rows(int dim, Simulation *sim){
     }
 }
 
-void make_columns(int dim, Simulation * sim){
+void make_columns(Simulation * sim){
 
 
     /** making columns with good indexing **/
@@ -92,16 +93,27 @@ void make_columns(int dim, Simulation * sim){
     }
 }
 
-void set_all_k(int dim, Simulation *sim){
+void set_all_k(Simulation *sim){
     
     for (int i = 0; i < full_springs.size(); i++){
          full_springs[i]->_k = 800;
     }
+}
+
+void make_muscles(Simulation *sim){
+    
+    //make_r1();
+    //make_r2();
+    //make_r3();
+    //make_r4();    
 
 
-    /**
-     * Make first rec
-     **/
+ /**
+ * Make first rec
+ **/
+
+
+//void make_r1(int dim, Simulation *sim)
 
     Container * r1 = sim->createContainer();
     Container * r1_vert = sim->createContainer();
@@ -230,6 +242,7 @@ void set_all_k(int dim, Simulation *sim){
         r4_vert->add(spring_vec_2[ (i*50) + 14 ]->_right);
     }
     r4_vert->setRestLengths(2);
+
 
 
     /**
