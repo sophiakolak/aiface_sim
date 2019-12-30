@@ -34,6 +34,7 @@ int main(){
    Simulation sim;	
    make_grid(&sim);
    set_all_k(&sim);
+   //sim.start();
    make_muscles(&sim);
    rest(&sim);
    // make_recs(50);
@@ -129,8 +130,6 @@ void make_r1(Simulation *sim){
     r1_vert->setRestLengths(2);
 }
 
-
-
 /**
 * Make second rec
 **/
@@ -141,8 +140,6 @@ void make_r2(Simulation *sim){
     Container * r2_vert = make_rec_vert(20, sim);
     r2_vert->setRestLengths(2);
 }
-
-
 
 /**
 * Make third rec
@@ -518,6 +515,7 @@ void rest(Simulation *sim){
     /**
      * Make upper lip
      * */
+
     Container * u_lip = sim->createContainer();
     int init23 = 21 + ( (dim-1) * 32 );
     for (int i = init23; i < init23 + 9; i++){
@@ -527,6 +525,20 @@ void rest(Simulation *sim){
         u_lip->add( spring_vec[  i   ]->_left );
         u_lip->add( spring_vec[  i   ]->_right );
     }
+
+
+    Container *u_lip_vert = sim->createContainer();
+    for (int i = 21; i < 21 + 10; i++){
+        (spring_vec_2[ (i*50) + 32 ]->_left)->color = Vec(.194,.398,.850);
+	(spring_vec_2[ (i*50) + 32 ]->_right)->color = Vec(.194,.398,.850);
+	u_lip_vert->add( spring_vec_2[ (i*50) + 32] );
+        u_lip_vert->add( spring_vec_2[ (i*50) + 32]->_left );
+	u_lip_vert->add( spring_vec_2[ (i*50) + 32]->_right );
+    }
+
+    //u_lip_vert->setRestLengths(2);
+
+
     int init24 = 19 + ( (dim-1) * 33 );
     for (int i = init24; i < init24 + 12; i++){
         (spring_vec[  i  ]->_left)->color = Vec(0.194,0.398,0.850);
@@ -536,21 +548,45 @@ void rest(Simulation *sim){
         u_lip->add( spring_vec[  i   ]->_right );
     }
     
-    vector <int> index_vec7;
-    index_vec7.push_back(18 + ((dim-1) * 34));
-    index_vec7.push_back(19 + ((dim-1) * 34));
-    index_vec7.push_back(30 + ((dim-1) * 34));
-    index_vec7.push_back(31 + ((dim-1) * 34));
+    vector <int> index_corner;
+    vector <int> index_not_corner;
+    Container *mouth_corner = sim->createContainer();
+
+    index_corner.push_back(18 + ((dim-1) * 34));
+
+    index_not_corner.push_back(19 + ((dim-1) * 34));
+    index_not_corner.push_back(30 + ((dim-1) * 34));
+
+    index_corner.push_back(31 + ((dim-1) * 34));
     //index_vec7.push_back(34 + ((dim-1) * 28));
     //index_vec7.push_back(35 + ((dim-1) * 28));
-    for (int x : index_vec7){
+    for (int x : index_not_corner){
         (spring_vec[  x ]->_left)->color = Vec(0.194,0.398,0.850);
         (spring_vec[  x  ]->_right)->color = Vec(0.194,0.398,0.850);
         u_lip->add(spring_vec[  x   ]);
         u_lip->add( spring_vec[  x   ]->_left );
         u_lip->add( spring_vec[  x   ]->_right );
     }
+    for (int x : index_corner){
+        //(spring_vec[  x ]->_left)->color = Vec(1,1,1);
+        //(spring_vec[  x  ]->_right)->color = Vec(1,1,1);
+        u_lip->add(spring_vec[  x   ]);
+        u_lip->add( spring_vec[  x   ]->_left );
+        u_lip->add( spring_vec[  x   ]->_right );
+    }
 
+    for (int i = 16; i < 16+20; i++){
+        if( (i == 16)  || (i == 34) ){ 
+        //(spring_vec_2[  (i*50) + 33 ]->_left)->color = Vec(1,1,1);
+        //(spring_vec_2[  (i*50) + 33  ]->_right)->color = Vec(1,1,1);
+        mouth_corner->add(spring_vec_2[  (i*50) + 33   ]);
+        (spring_vec_2[ (i*50) + 33 ]->_right)->fix(); 
+        mouth_corner->add( spring_vec_2[  (i*50) + 33   ]->_left );
+        mouth_corner->add( spring_vec_2[  (i*50) + 33   ]->_right );
+	}
+    }
+
+    mouth_corner->setRestLengths(8);
 
 
     /**
