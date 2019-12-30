@@ -14,6 +14,11 @@ void make_rows(Simulation *sim);
 void make_columns(Simulation *sim);
 void set_all_k(Simulation *sim);
 void make_muscles(Simulation *sim);
+void make_r1(Simulation *sim);
+void make_r2(Simulation *sim);
+void make_r3(Simulation *sim);
+void make_r4(Simulation *sim);
+void rest(Simulation *sim);
 
 vector <Mass *> mass_vec;
 vector <Spring *> spring_vec;
@@ -27,6 +32,7 @@ int main(){
    make_grid(&sim);
    set_all_k(&sim);
    make_muscles(&sim);
+   rest(&sim);
    // make_recs(50);
 }
 
@@ -102,18 +108,18 @@ void set_all_k(Simulation *sim){
 
 void make_muscles(Simulation *sim){
     
-    //make_r1();
-    //make_r2();
-    //make_r3();
-    //make_r4();    
+    make_r1(sim);
+    make_r2(sim);
+    make_r3(sim);
+    make_r4(sim);    
 
+}
 
  /**
  * Make first rec
  **/
 
-
-//void make_r1(int dim, Simulation *sim)
+void make_r1(Simulation *sim){
 
     Container * r1 = sim->createContainer();
     Container * r1_vert = sim->createContainer();
@@ -142,12 +148,13 @@ void make_muscles(Simulation *sim){
         r1_vert->add(spring_vec_2[ (i*50) + 14 ]->_right);
     }
     r1_vert->setRestLengths(2);
-    //r1_vert->setSpringConstants(800);
-    //r1->setSpringConstants(800);
-    
-     /**
-     * Make second rec
-     * */
+} 
+
+/**
+* Make second rec
+**/
+
+void make_r2(Simulation *sim){ 
 
     Container * r2 = sim->createContainer();
     Container * r2_vert = sim->createContainer();
@@ -176,10 +183,13 @@ void make_muscles(Simulation *sim){
         r2_vert->add(spring_vec_2[ (i*50) + 14 ]->_right);
     }
     r2_vert->setRestLengths(2);
+}
 
-    /**
-     * Make third rec
-     * */
+/**
+* Make third rec
+**/
+
+void make_r3(Simulation *sim){
     
     Container * r3 = sim->createContainer();
     Container * r3_vert = sim->createContainer();
@@ -208,12 +218,14 @@ void make_muscles(Simulation *sim){
         r3_vert->add(spring_vec_2[ (i*50) + 14 ]->_right);
     }
     r3_vert->setRestLengths(2);
+}
 
 
-    /**
-     * Make fourth rec
-     * */
+/**
+* Make fourth rec
+**/
 
+void make_r4(Simulation *sim){
 
     Container * r4 = sim->createContainer();
     Container * r4_vert = sim->createContainer();
@@ -243,7 +255,9 @@ void make_muscles(Simulation *sim){
     }
     r4_vert->setRestLengths(2);
 
+}
 
+void rest(Simulation *sim){
 
     /**
      * Make left eyelid up 
