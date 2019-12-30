@@ -123,105 +123,35 @@ void make_muscles(Simulation *sim){
  **/
 
 void make_r1(Simulation *sim){
-
-    Container * r1 = sim->createContainer();
-    Container * r1_vert = sim->createContainer();
-    int init = 12 + ( (dim-1) * 14 );
-
-    for (int i = init; i < init + 3; i++){
-        (spring_vec[  i  ]->_left)->color = Vec(1.0, 1.0, 1.0);
-	(spring_vec[  i  ]->_right)->color = Vec(1.0, 1.0, 1.0);
-        r1->add(spring_vec[  i   ]);
-	r1->add( spring_vec[  i   ]->_left );
-	r1->add( spring_vec[  i   ]->_right );
-    }
-
-    int init2 = 12 + ( (dim-1) * 15 );
-    for (int i=init2; i < init2 + 3; i++){
-        (spring_vec[i]->_left)->color = Vec(1.0, 1.0, 1.0);
-	(spring_vec[i]->_right)->color = Vec(1.0, 1.0, 1.0);
-        r1->add(spring_vec[i]);
-	r1->add( spring_vec[i]->_left );
-	r1->add( spring_vec[i]->_right );
-    }
-    for (int i=12; i < 16; i++){
-        (spring_vec_2[   (i*50) + 14  ]->_left)->color = Vec(1,1,1);
-        (spring_vec_2[   (i*50) + 14  ]->_right)->color = Vec(1,1,1);
-        r1_vert->add(spring_vec_2[ (i*50) + 14 ]);
-	(spring_vec_2[ (i*50) + 14 ]->_right)->fix();
-        r1_vert->add(spring_vec_2[ (i*50) + 14 ]->_left);
-        r1_vert->add(spring_vec_2[ (i*50) + 14 ]->_right);
-    }
+    int start = 12; 
+    Container * r1 = make_rec_container(12, sim);
+    Container * r1_vert = make_rec_vert(12, sim);
     r1_vert->setRestLengths(2);
-} 
+}
+
+
 
 /**
 * Make second rec
 **/
 
-void make_r2(Simulation *sim){ 
-
-    Container * r2 = sim->createContainer();
-    Container * r2_vert = sim->createContainer();
-    int init3 = 20 + ( (dim-1) * 14 );
-    for (int i = init3; i < init3 + 3; i++){
-        (spring_vec[  i  ]->_left)->color = Vec(1.0, 1.0, 1.0);
-	(spring_vec[  i  ]->_right)->color = Vec(1.0, 1.0, 1.0);
-        r2->add(spring_vec[  i   ]);
-	r2->add( spring_vec[  i   ]->_left );
-	r2->add( spring_vec[  i   ]->_right );
-    }
-    int init4 = 20 + ( (dim-1) * 15 );
-    for (int i=init4; i < init4 + 3; i++){
-        (spring_vec[i]->_left)->color = Vec(1.0, 1.0, 1.0);
-	(spring_vec[i]->_right)->color = Vec(1.0, 1.0, 1.0);
-        r2->add(spring_vec[i]);
-	r2->add( spring_vec[i]->_left );
-	r2->add( spring_vec[i]->_right );
-    }
-    for (int i=20; i < 24; i++){
-        (spring_vec_2[   (i*50) + 14  ]->_left)->color = Vec(0.340,0.850,0.614);
-        (spring_vec_2[   (i*50) + 14  ]->_right)->color = Vec(0.340,0.850,0.614);
-        r2_vert->add(spring_vec_2[ (i*50) + 14 ]);
-	(spring_vec_2[ (i*50) + 14 ]->_right)->fix();
-        r2_vert->add(spring_vec_2[ (i*50) + 14 ]->_left);
-        r2_vert->add(spring_vec_2[ (i*50) + 14 ]->_right);
-    }
+void make_r2(Simulation *sim){
+    int start = 20; 
+    Container * r2 = make_rec_container(20, sim);
+    Container * r2_vert = make_rec_vert(20, sim);
     r2_vert->setRestLengths(2);
 }
+
+
 
 /**
 * Make third rec
 **/
 
 void make_r3(Simulation *sim){
-    
-    Container * r3 = sim->createContainer();
-    Container * r3_vert = sim->createContainer();
-    int init5 = 28 + ( (dim-1) * 14 );
-    for (int i = init5; i < init5 + 3; i++){
-        (spring_vec[  i  ]->_left)->color = Vec(1.0, 1.0, 1.0);
-	(spring_vec[  i  ]->_right)->color = Vec(1.0, 1.0, 1.0);
-        r3->add(spring_vec[  i   ]);
-	r3->add( spring_vec[  i   ]->_left );
-	r3->add( spring_vec[  i   ]->_right );
-    }
-    int init6 = 28 + ( (dim-1) * 15 );
-    for (int i=init6; i < init6 + 3; i++){
-        (spring_vec[i]->_left)->color = Vec(1.0, 1.0, 1.0);
-	(spring_vec[i]->_right)->color = Vec(1.0, 1.0, 1.0);
-        r3->add(spring_vec[i]);
-	r3->add( spring_vec[i]->_left );
-	r3->add( spring_vec[i]->_right );
-    }
-    for (int i=28; i < 32; i++){
-        (spring_vec_2[   (i*50) + 14  ]->_left)->color = Vec(0.340,0.850,0.614);
-        (spring_vec_2[   (i*50) + 14  ]->_right)->color = Vec(0.340,0.850,0.614);
-        r3_vert->add(spring_vec_2[ (i*50) + 14 ]);
-	(spring_vec_2[ (i*50) + 14 ]->_right)->fix();
-        r3_vert->add(spring_vec_2[ (i*50) + 14 ]->_left);
-        r3_vert->add(spring_vec_2[ (i*50) + 14 ]->_right);
-    }
+    int start = 28; 
+    Container * r3 = make_rec_container(28, sim);
+    Container * r3_vert = make_rec_vert(28, sim);
     r3_vert->setRestLengths(2);
 }
 
@@ -229,38 +159,6 @@ void make_r3(Simulation *sim){
 /**
 * Make fourth rec
 **/
-
-/**void make_r4(Simulation *sim){
-
-    Container * r4 = sim->createContainer();
-    Container * r4_vert = sim->createContainer();
-    int init7 = 36 + ( (dim-1) * 14 );
-    for (int i = init7; i < init7 + 3; i++){
-        (spring_vec[  i  ]->_left)->color = Vec(1.0, 1.0, 1.0);
-        (spring_vec[  i  ]->_right)->color = Vec(1.0, 1.0, 1.0);
-        r4->add(spring_vec[  i   ]);
-        r4->add( spring_vec[  i   ]->_left );
-        r4->add( spring_vec[  i   ]->_right );
-    }
-    int init8 = 36 + ( (dim-1) * 15 );
-    for (int i=init8; i < init8 + 3; i++){
-        (spring_vec[i]->_left)->color = Vec(1.0, 1.0, 1.0);
-        (spring_vec[i]->_right)->color = Vec(1.0, 1.0, 1.0);
-        r4->add(spring_vec[i]);
-        r4->add( spring_vec[i]->_left );
-        r4->add( spring_vec[i]->_right );
-    }
-    for (int i=36; i < 40; i++){
-        (spring_vec_2[   (i*50) + 14  ]->_left)->color = Vec(1,1,1);
-        (spring_vec_2[   (i*50) + 14  ]->_right)->color = Vec(1,1,1);
-        r4_vert->add(spring_vec_2[ (i*50) + 14 ]);
-	(spring_vec_2[ (i*50) + 14 ]->_right)->fix();
-        r4_vert->add(spring_vec_2[ (i*50) + 14 ]->_left);
-        r4_vert->add(spring_vec_2[ (i*50) + 14 ]->_right);
-    }
-    r4_vert->setRestLengths(2);
-
-}**/
 
 void make_r4(Simulation *sim){
     int start = 36; 
